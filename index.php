@@ -4,7 +4,6 @@ session_start();
 if ( isset($_POST['F_name']) && isset($_POST['L_name']) && isset($_POST['Gender']) && isset($_POST['Phone_No']) &&
         isset($_POST['Username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['pass2'])) {
 
-        // ADD Data Vallidation
     if (strlen($_POST['F_name']) < 1 || strlen($_POST['L_name']) < 1 || strlen($_POST['Gender']) < 1 || strlen($_POST['Phone_No']) < 1 ||
             strlen($_POST['Username']) < 1 || strlen($_POST['email']) < 1 || strlen($_POST['pass']) < 1 || strlen($_POST['pass2']) < 1) {
         $_SESSION['error'] = "Missing Data";

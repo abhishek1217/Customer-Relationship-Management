@@ -1,0 +1,48 @@
+.login-stuff {
+    background-color: rgb(220, 219, 224);
+    margin: 100px 200px 100px 200px;
+    border: rgb(255, 255, 255);
+    border-radius: 20px;
+}
+
+.details{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-left: 100px;
+}
+img {
+    max-width: 30%;
+    max-height: 30%;
+}
+form {
+    display: table;
+}
+
+.login-text {
+    display: table-row;
+}
+
+label {
+    display: table-cell;
+    padding: 10px;
+    font-size: 20px;   
+}
+
+.login-input{
+    display: table-cell;
+}
+
+.login-button {
+    cursor: pointer;
+    border-radius: 20px;
+    border-color: #111;
+    background-color: #111;
+    color: white;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 20px;
+    font-weight: bold;
+}
