@@ -15,7 +15,7 @@ if ( isset($_POST['Username']) && isset($_POST['Password'])) {
         return;
     }
 
-    $sql = "SELECT Salesman_id, Username, Password From Salesman Where Username= :un and Password = :ps";
+    $sql = "SELECT F_Name,L_Name,Salesman_id, Username, Password From Salesman Where Username= :un and Password = :ps";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([':un' => $un,':ps' => $ps]);
     $row = $stmt->fetchALL(PDO::FETCH_ASSOC);
@@ -25,8 +25,9 @@ if ( isset($_POST['Username']) && isset($_POST['Password'])) {
         return;
     }
     $_SESSION['id'] = $row[0]['Salesman_id'];
-    $_SESSION['success'] = 'Record Extracted';
-    header("Location: dashboard.php");
+    $_SESSION['FirstName'] = $row[0]['F_Name'];
+    $_SESSION['LastName'] = $row[0]['L_Name'];
+    header("Location: Leads.php");
     return;
 }
 ?>
