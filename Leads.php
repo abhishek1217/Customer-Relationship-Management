@@ -6,7 +6,7 @@ $fname = $_SESSION['FirstName'];
 $lname = $_SESSION['LastName'];
 $id = $_SESSION['id'];
 if ( isset($_POST['Name']) && isset($_POST['Phone_No'])
-     && isset($_POST['Product']) && isset($_POST['Priority'])) {
+     && isset($_POST['Product']) && isset($_POST['Priority']) && isset($_POST['FollowUp'])) {
 
     // Data validation
     if ( strlen($_POST['Name']) < 1 || strlen($_POST['Phone_No']) < 1 || strlen($_POST['Product']) < 1 || strlen($_POST['Priority']) < 1) {
@@ -15,15 +15,16 @@ if ( isset($_POST['Name']) && isset($_POST['Phone_No'])
         return;
     }
 
-    $sql = "INSERT INTO Leads (Salesman_id, Phone_No, Name, P_S_Requested, Priority)
-              VALUES (:id, :ph, :name, :prod, :priority)";
+    $sql = "INSERT INTO Leads (Salesman_id, Phone_No, Name, P_S_Requested, Priority, FollowUp_Date)
+              VALUES (:id, :ph, :name, :prod, :priority, :followup)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(
         ':id' => $id,
         ':ph' => $_POST['Phone_No'],
         ':name' => $_POST['Name'],
         ':prod' => $_POST['Product'],
-        ':priority' => $_POST['Priority']));
+        ':priority' => $_POST['Priority'],
+        ':followup' => $_POST['FollowUp']));
     $_SESSION['success'] = 'Lead Created';
     header('Location: Leads.php');
     return;
@@ -35,14 +36,17 @@ if ( isset($_POST['Name']) && isset($_POST['Phone_No'])
     <title>Leads</title>
     <link rel="stylesheet" href="Leads.css">
 </head>
+<body>
     <div class="whole-thing">
     <h1>Welcome <?php echo $fname . " " . $lname?> </h1>
-    <?php
+    <div class="new-lead">
+        <h2 class="add-text">Add New Lead</h2>
+        <?php
         if(isset($_SESSION['success']))
         {
         ?>
         <div class="message">
-            <strong>Success! </strong><strong><?php echo $_SESSION['success'];?></strong>
+            <strong style="color: green;">Success! </strong><strong><?php echo $_SESSION['success'];?></strong>
         </div>
         <?php
         }
@@ -51,34 +55,70 @@ if ( isset($_POST['Name']) && isset($_POST['Phone_No'])
         {
         ?>
         <div class="message">
-            <strong>Error! </strong> <?php echo $_SESSION['error']; ?>
+            <strong style="color: red;">Error! </strong> <?php echo $_SESSION['error']; ?>
         </div>
         <?php
         }
         unset($_SESSION['error']);
     ?>
-    <div class="new-lead">
-        <h2>New Lead</h2>
-        <form method="post">
-            <p class="reg"><label for="Name">Name</label>
-            <input type="text" name="Name" class="reg-input"/></p>
-            <p class="reg"><label for="Phone_No">Phone Number</label>
-            <input type="number" name="Phone_No" class="reg-input"/></p>
-            <p class="reg"><label for="Product">Product Requested</label>
-            <input type="text" name="Product" class="reg-input"/></p>
-            <p class="reg"><label for="Priority">Priority</label>
-            <input type="number" name="Priority" class="reg-input"/></p>
-            <input class="create-button" type="submit" value="Create">
-        </form>
+        <div class="container">
+            <form method="post">
+                <div class="row">
+                    <div class = "col-25">
+                        <label for="Name">Name</label>
+                    </div>
+                        <div class="col-75">
+                            <input type="text" name="Name" class="reg-input"/>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="Phone_No">Phone Number</label>
+                    </div>
+                        <div class="col-75">
+                            <input type="number" name="Phone_No" class="reg-input"/>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="Product">Product Requested</label>
+                    </div>
+                        <div class="col-75">
+                            <input type="text" name="Product" class="reg-input"/>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="Priority">Priority</label>
+                    </div>
+                        <div class="col-75">
+                            <input type="number" name="Priority" class="reg-input"/>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="FollowUp">FollowUp Date</label>
+                    </div>
+                        <div class="col-75">
+                            <input type="date" name="FollowUp" class="reg-input"/>
+                        </div>
+                </div>
+                <br>
+                <div class="row">
+                    <input class="create-button" type="submit" value="Add">
+                </div>
+            </form>
+        </div>
     </div>
     <div class="table">
-    <h1>A Fancy Table</h1>
+    <h2>Your Leads</h2>
     <table id="customers">
     <tr>
     <th>Name</th>
     <th>Phone Number</th>
     <th>Product/Service</th>
     <th>Priority</th>
+    <th>Follow Up</th>
     <th>Action</th>
     <?php
     $sql = "SELECT * FROM Leads WHERE Salesman_id = :id";
@@ -94,12 +134,14 @@ if ( isset($_POST['Name']) && isset($_POST['Phone_No'])
         echo('</td><td>');
         echo(htmlentities($row['Priority']));
         echo('</td><td>');
-        echo('<a href="Convert.php">Convert</a>');
+        echo(htmlentities($row['FollowUp_Date']));
+        echo('</td><td>');
+        echo('<button class="convert-button"><a class="convert" href="Convert.php">Convert</a></button>');
         echo("</td></tr>");
     }
-    print_r($_SESSION);
     ?>
     </div>
 </table>
     </div>
+</body>
 </html>

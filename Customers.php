@@ -46,7 +46,6 @@ $id = $_SESSION['id'];
         echo('<a href="Edit_Customer.php">Edit</a>');
         echo("</td></tr>");
     }
-    print_r($_SESSION);
     ?>
     </div>
     </table>

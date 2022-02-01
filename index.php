@@ -96,9 +96,6 @@ Nunc dui turpis, mollis sed rhoncus ut, vulputate.
 Aenean porttitor ex vel ligula cursus efficitur. 
 Pellentesque gravida nunc mi. </p>
     <button onclick = "location.href = 'login.php';" class="login-button">Log In</button>
-    <?php
-    print_r($_SESSION);
-    ?>
 </body>
 </html>
 
