@@ -32,19 +32,47 @@ if ( isset($_POST['Name']) && isset($_POST['Notes']) && isset($_POST['dd']) && i
         <title>Tasks</title>
         <link rel="stylesheet" href="Tasks.css">
     </head>
+    <body>
     <h1>Tasks</h1>
     <div class="new-lead">
         <h2>Add Task</h2>
         <form method="post">
-            <p class="reg"><label for="Name">Customer Name</label>
-            <input type="text" name="Name" class="reg-input"/></p>
-            <p class="reg"><label for="Notes">Notes</label>
-            <textarea name="Notes">Text Area</textarea></p>
-            <p class="reg"><label for="dd">Due Date</label>
-            <input type="date" name="dd" class="reg-input"/></p>
-            <p class="reg"><label for="Status">Status</label>
-            <input type="text" name="Status" class="reg-input"/></p>
-            <input class="create-button" type="submit" value="Add">
+            <div class="row">
+                <div class="col-25">
+                    <label for="Name">Customer Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="Name" class="reg-input"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="Notes">Notes</label>
+                </div>
+                <div class="col-75">
+                    <textarea name="Notes">Text Area</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="dd">Due Date</label>
+                </div>
+                <div class="col-75">
+                    <input type="date" name="dd" class="reg-input"/> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="Status">Status</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="Status" class="reg-input"/>
+                </div>
+            </div>
+            <br>
+                <div class="row">
+                    <input class="create-button" type="submit" value="Add">
+                </div>
         </form>
     </div>
 
@@ -75,4 +103,5 @@ if ( isset($_POST['Name']) && isset($_POST['Notes']) && isset($_POST['dd']) && i
     ?>
     </table>
     </div>
+</body>
 </html>
