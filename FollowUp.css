@@ -30,3 +30,14 @@
     margin-left: 250px;
     margin-right: 100px;
 }
+
+.convert {
+    color: white;
+    text-decoration: none;
+}
+
+.convert-button {
+    background-color: #111;
+    border-color: #111;
+    color: white;
+}

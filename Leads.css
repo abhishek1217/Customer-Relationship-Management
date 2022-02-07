@@ -100,6 +100,7 @@
   }
 
 .whole-thing {
+  /* margin-top: 100px; */
     margin-left: 250px;
     margin-right: 100px;
 }
@@ -116,7 +117,6 @@
 }
 
 .convert-button {
-    border-radius: 20px;
     background-color: #111;
     border-color: #111;
     color: white;

@@ -32,8 +32,9 @@ if ( isset($_POST['Name']) && isset($_POST['Price'])
         <link rel="stylesheet" href="Products.css">
     </head>
     <body>
+        <div class="whole-thing">
     <div class="new-lead">
-        <h2>Add a New Product</h2>
+        <h2 class="add-text">Add a New Product</h2>
         <?php
         if(isset($_SESSION['success']))
         {
@@ -54,16 +55,45 @@ if ( isset($_POST['Name']) && isset($_POST['Price'])
         }
         unset($_SESSION['error']);
         ?>
+        <div class="container">
         <form method="post">
-            <p class="reg"><label for="Name">Name</label>
-            <input type="text" name="Name" class="reg-input"/></p>
-            <p class="reg"><label for="Price">Price</label>
-            <input type="number" name="Price" class="reg-input"/></p>
-            <p class="reg"><label for="Demand">Demand</label>
-            <input type="text" name="Demand" class="reg-input"/></p>
-            <p class="reg"><label for="UA">Units Available</label>
-            <input type="number" name="UA" class="reg-input"/></p>
-            <input class="create-button" type="submit" value="Add">
+            <div class="row">
+                        <div class = "col-25">
+                            <label for="Name">Name</label>
+                        </div>
+                            <div class="col-75">
+                                <input type="text" name="Name" class="reg-input"/>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Price">Price</label>
+                        </div>
+                            <div class="col-75">
+                                <input type="number" name="Price" class="reg-input"/>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="Demand">Demand</label>
+                        </div>
+                            <div class="col-75">
+                                <input type="text" name="Demand" class="reg-input"/>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="UA">Units Available</label>
+                        </div>
+                            <div class="col-75">
+                                <input type="number" name="UA" class="reg-input"/>
+                            </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <input class="create-button" type="submit" value="Add">
+                    </div>
+        </div>
         </form>
     </div>
     
@@ -91,6 +121,6 @@ if ( isset($_POST['Name']) && isset($_POST['Price'])
     ?>
     </table>
     </div>
-
+</div>
 </body>
 </html>

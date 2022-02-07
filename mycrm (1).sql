@@ -2,8 +2,8 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:4306
--- Generation Time: Jan 23, 2022 at 03:14 PM
+-- Host: 127.0.0.1
+-- Generation Time: Feb 05, 2022 at 01:50 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -64,6 +64,16 @@ CREATE TABLE `customer` (
   `Amount_Paid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`Customer_id`, `Salesman_id`, `Customer_Name`, `Gender`, `S_P_Provided`, `Phone_No`, `Email`, `Amount_Paid`) VALUES
+(1, 11, NULL, 'male', '9876576809', NULL, NULL, NULL),
+(2, 11, NULL, 'Male', '9876543897', NULL, NULL, NULL),
+(3, 1, 'dummy', 'Male', 'Refrigerator', '9555586798', 'dumbo@gmail.com', 78999),
+(4, 1, 'Abhishek D', 'Male', 'Refrigerator', '9739202870', 'abhishek95381@gmail.com', 40000);
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +85,7 @@ CREATE TABLE `invoice` (
   `Customer_id` int(11) DEFAULT NULL,
   `Salesman_id` int(11) DEFAULT NULL,
   `Customer_Name` varchar(255) DEFAULT NULL,
+  `Product_Name` varchar(255) NOT NULL,
   `Shipping_Date` date DEFAULT NULL,
   `Amount_Paid` int(11) DEFAULT NULL,
   `Phone_No` varchar(11) DEFAULT NULL,
@@ -83,6 +94,13 @@ CREATE TABLE `invoice` (
   `Payment_Status` varchar(255) DEFAULT NULL,
   `Processing_Status` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`Invoice_id`, `Customer_id`, `Salesman_id`, `Customer_Name`, `Product_Name`, `Shipping_Date`, `Amount_Paid`, `Phone_No`, `Email`, `Shipping_Address`, `Payment_Status`, `Processing_Status`) VALUES
+(1, 4, 1, 'dummy', 'Refrigerator', '2022-02-07', 890, '9876545678', 'dumbo@gmail.com', 'hi hi hi hi hi hi hi hi hi hi hihihi', 'Pending', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -96,24 +114,17 @@ CREATE TABLE `leads` (
   `Phone_No` varchar(11) DEFAULT NULL,
   `Name` varchar(255) DEFAULT NULL,
   `P_S_Requested` varchar(255) DEFAULT NULL,
-  `Priority` int(11) DEFAULT NULL
+  `Priority` int(11) DEFAULT NULL,
+  `FollowUp_Date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `leads`
 --
 
-INSERT INTO `leads` (`Leads_id`, `Salesman_id`, `Phone_No`, `Name`, `P_S_Requested`, `Priority`) VALUES
-(1, 1, '9899899219', 'Akhila', 'Refrigerator', 0),
-(2, 1, '9739202879', 'Sangeeta', 'Television', 1),
-(3, 1, '9899899210', 'Sham', 'Television', 2),
-(4, 1, '9876543210', 'Van Pelt', 'Laptop', 2),
-(5, 1, '9870654023', 'Patrick James', 'Smartwatch', 2),
-(6, 1, '9345672810', 'Teresa Lisbon', 'Laptop', 0),
-(7, 1, '6667548901', 'Alison Brie', 'Refrigerator', 0),
-(8, NULL, '9876545678', 'dummy', 'Refrigerator', 0),
-(9, NULL, '9876545677', 'sample', 'Television', 2),
-(10, NULL, '9876545678', 'sample', '', 0);
+INSERT INTO `leads` (`Leads_id`, `Salesman_id`, `Phone_No`, `Name`, `P_S_Requested`, `Priority`, `FollowUp_Date`) VALUES
+(16, 1, '9739202870', 'Abhishek', 'Refrigerator', 0, '2022-02-02'),
+(17, 1, '8768756784', 'Jeff Winger', 'Refrigerator', 2, '2022-02-05');
 
 -- --------------------------------------------------------
 
@@ -137,7 +148,8 @@ INSERT INTO `products` (`Product_id`, `Name`, `Price`, `Demand`, `Units_is`) VAL
 (1, 'Television', 80000, 'High', 5),
 (2, 'Refrigerator', 45000, 'High', 3),
 (3, 'Laptop', 65000, 'High', 5),
-(4, 'SmartWatch', 3000, 'Medium', 2);
+(4, 'SmartWatch', 3000, 'Medium', 2),
+(5, 'Washing Machine', 45000, 'High', 10);
 
 -- --------------------------------------------------------
 
@@ -156,16 +168,16 @@ CREATE TABLE `salesman` (
   `Branch` varchar(255) DEFAULT NULL,
   `Birth_Date` date DEFAULT NULL,
   `Username` varchar(255) DEFAULT NULL,
-  `Password` varchar(255) DEFAULT NULL,
-  `Admin_id` int(11) DEFAULT NULL
+  `Password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `salesman`
 --
 
-INSERT INTO `salesman` (`Salesman_id`, `F_Name`, `L_Name`, `Gender`, `Phone_No`, `Email`, `Address`, `Branch`, `Birth_Date`, `Username`, `Password`, `Admin_id`) VALUES
-(1, 'Sheela', 'Bharadwaj', 'Female', '9899899210', 'sheela@bharadwaj.com', 'Bangalore', 'BLR', '1989-12-17', 'sheela1234', '1234', 1);
+INSERT INTO `salesman` (`Salesman_id`, `F_Name`, `L_Name`, `Gender`, `Phone_No`, `Email`, `Address`, `Branch`, `Birth_Date`, `Username`, `Password`) VALUES
+(1, 'Abhishek', 'D', 'Male', '9739202870', 'abhishek@dummy.com', 'Bangalore', 'BLR', '2000-12-17', 'abhishek95381', '95381'),
+(11, 'Alison', 'Brie', 'Female', '9969696999', 'alison@community.com', NULL, NULL, NULL, 'alison69', 'jeff');
 
 -- --------------------------------------------------------
 
@@ -182,6 +194,13 @@ CREATE TABLE `tasks` (
   `Status` varchar(40) DEFAULT NULL,
   `Date_Created` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`Task_id`, `Salesman_id`, `Customer_Name`, `Notes`, `Due_Date`, `Status`, `Date_Created`) VALUES
+(1, 1, 'Abhishek', 'Do a follow up call', '2022-02-02', 'Pending', '2022-02-01');
 
 --
 -- Indexes for dumped tables
@@ -225,8 +244,7 @@ ALTER TABLE `products`
 -- Indexes for table `salesman`
 --
 ALTER TABLE `salesman`
-  ADD PRIMARY KEY (`Salesman_id`),
-  ADD KEY `Admin_id` (`Admin_id`);
+  ADD PRIMARY KEY (`Salesman_id`);
 
 --
 -- Indexes for table `tasks`
@@ -249,37 +267,37 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `Customer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `Invoice_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `leads`
 --
 ALTER TABLE `leads`
-  MODIFY `Leads_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Leads_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `Product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `salesman`
 --
 ALTER TABLE `salesman`
-  MODIFY `Salesman_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Salesman_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `Task_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -303,12 +321,6 @@ ALTER TABLE `invoice`
 --
 ALTER TABLE `leads`
   ADD CONSTRAINT `leads_ibfk_1` FOREIGN KEY (`Salesman_id`) REFERENCES `salesman` (`Salesman_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `salesman`
---
-ALTER TABLE `salesman`
-  ADD CONSTRAINT `salesman_ibfk_1` FOREIGN KEY (`Admin_id`) REFERENCES `admin` (`Admin_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tasks`

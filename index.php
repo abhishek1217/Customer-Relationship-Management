@@ -30,7 +30,23 @@ if ( isset($_POST['F_name']) && isset($_POST['L_name']) && isset($_POST['Gender'
     header('Location: index.php');
     return;
     }
-
+if (isset($_POST['uname']) && isset($_POST['psw'])){
+    //TO DO: Add data validation 
+    $sql = "SELECT F_Name,L_Name,Salesman_id, Username, Password From Salesman Where Username= :un and Password = :ps";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([':un' => $_POST['uname'],':ps' => $_POST['psw']]);
+    $row = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    if ( $row[0]['Password'] !== $_POST['psw']){
+        $_SESSION['error'] = 'Incorrect Password';
+        header("Location: login.php");
+        return;
+    }
+    $_SESSION['id'] = $row[0]['Salesman_id'];
+    $_SESSION['FirstName'] = $row[0]['F_Name'];
+    $_SESSION['LastName'] = $row[0]['L_Name'];
+    header("Location: Leads.php");
+    return;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,64 +54,67 @@ if ( isset($_POST['F_name']) && isset($_POST['L_name']) && isset($_POST['Gender'
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-
+<div>
 <ul class="header">
-    <li><a class="crm">CRM</a></li>
+    <li><a class="crm" style = "font-style: italic;">CRM</a></li>
     <div class="therest">
     <li><a href="login.php">Salesman</a></li>
     <li><a href="managerlogin.php">Manager</a></li></div>
     <!-- <li><a href="#about">About</a></li></div> -->
 </ul>
-<div class="sign-up">
-        <p class="sign-up-text">Sign Up</p>
-        <?php
-        if(isset($_SESSION['success']))
-        {
-        ?>
-        <div class="message">
-            <strong>Success!   </strong><strong><?php echo $_SESSION['success'];?></strong>
-        </div>
-        <?php
-        }
-        unset($_SESSION['success']);
-        if(isset($_SESSION['error']))
-        {
-        ?>
-        <div class="message">
-            <strong>Error!</strong> <?php echo $_SESSION['error']; ?>
-        </div>
-        <?php
-        }
-        unset($_SESSION['error']);
-        ?>
-        <form method="post">
-            <p class="reg"><label for="F_name">First Name</label>
-            <input type="text" name="F_name" class="reg-input"/></p>
-            <p class="reg"><label for="L_name">Last Name</label>
-            <input type="text" name="L_name" class="reg-input"/></p>
-            <p class="reg"><label for="Gender">Gender</label>
-            <input type="text" name="Gender" class="reg-input"/></p>
-            <p class="reg"><label for="Phone_No">Phone Number</label>
-            <input type="number" name="Phone_No" class="reg-input"/></p>
-            <p class="reg"><label for="Username">Username</label>
-            <input type="text" name="Username" class="reg-input"/></p>
-            <p class="reg"><label for="email">Email</label>
-            <input type="email" name="email" class="reg-input"/></p>
-            <p class="reg"><label for="pass">Password</label>
-            <input type="password" name="pass" class="reg-input"/></p>
-            <p class="reg"><label for="pass2">Reenter Password</label>
-            <input type="password" name="pass2" class="reg-input"/></p>
-            <input class="sign-up-button" type="submit" value="Sign Up">
-        </form>
 </div>
+
+<center><img src="crmimage.jpg" alt="CRM" class="crm-image"></center>
+<span>Customer Relationship Management</span>
+<span>Your one stop to improve Customer relations</span>
+<h2>Modal Login Form</h2>
+
+<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="profile.svg" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+        
+      <button type="submit">Login</button>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+<!-- <div class="whole-thing">
     <p class="para">Customer Relationship Management</p>
-    <p class="para2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-Aliquam sit amet orci in leo placerat pellentesque.
- Maecenas sit amet lorem ullamcorper, faucibus  
-Nunc dui turpis, mollis sed rhoncus ut, vulputate. 
-Aenean porttitor ex vel ligula cursus efficitur. 
-Pellentesque gravida nunc mi. </p>
-    <button onclick = "location.href = 'login.php';" class="login-button">Log In</button>
+    <div style="background-image: url('crmimage.jpg');">
+        <p class="para2">Manage all your customer data at just one place </p>
+        <button onclick = "location.href = 'login.php';" class="login-button">Log In</button>
+        <button onclick = "location.href = 'signup.php';" class="login-button">Sign Up</button>
+    </div>
+</div> -->
+<!-- <div style="background-image: url('crmimage.jpg');"></div> -->
 </body>
 </html>
 
