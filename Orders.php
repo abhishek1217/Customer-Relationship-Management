@@ -156,43 +156,45 @@ if ( isset($_POST['ci']) && isset($_POST['Name']) && isset($_POST['pn']) && isse
             </div>
         </div>
         <div class="table">
-        <h1>All Orders</h1>
-        <table id="customers">
-            <tr>
-            <th>Customer Name</th>
-            <th>Product Name</th>
-            <th>Shipping Date</th>
-            <th>Amount Paid</th>
-            <th>Shipping Address</th>
-            <th>Payment Status</th>
-            <th>Processing Status</th>
-            <th>Action</th>
+            <h1>All Orders</h1>
+            <table id="customers">
+                <tr>
+                <th>Customer Name</th>
+                <th>Product Name</th>
+                <th>Shipping Date</th>
+                <th>Amount Paid</th>
+                <th>Shipping Address</th>
+                <th>Payment Status</th>
+                <th>Processing Status</th>
+                <th>Action</th>
 
-            <?php
-            $sql = "SELECT * FROM Invoice WHERE Salesman_id = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([':id' => $id]);
-            while ( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
-                echo("<tr><td>");
-                echo(htmlentities($row['Customer_Name']));
-                echo("</td><td>");
-                echo(htmlentities($row['Product_Name']));
-                echo('</td><td>');
-                echo(htmlentities($row['Shipping_Date']));
-                echo('</td><td>');
-                echo(htmlentities($row['Amount_Paid']));
-                echo('</td><td>');
-                echo(htmlentities($row['Shipping_Address']));
-                echo('</td><td>');
-                echo(htmlentities($row['Payment_Status']));
-                echo('</td><td>');
-                echo(htmlentities($row['Processing_Status']));
-                echo('</td><td>');
-                echo('<button class="convert-button"><a class="convert" href="Convert.php">Update</a></button>');
-                echo("</td></tr>");
-            }
-            ?>
-        </table>
+                <?php
+                $sql = "SELECT * FROM Invoice WHERE Salesman_id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([':id' => $id]);
+                while ( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
+                    echo("<tr><td>");
+                    echo(htmlentities($row['Customer_Name']));
+                    echo("</td><td>");
+                    echo(htmlentities($row['Product_Name']));
+                    echo('</td><td>');
+                    echo(htmlentities($row['Shipping_Date']));
+                    echo('</td><td>');
+                    echo(htmlentities($row['Amount_Paid']));
+                    echo('</td><td>');
+                    echo(htmlentities($row['Shipping_Address']));
+                    echo('</td><td>');
+                    echo(htmlentities($row['Payment_Status']));
+                    echo('</td><td>');
+                    echo(htmlentities($row['Processing_Status']));
+                    echo('</td><td>');
+                    echo('<button class="convert-button"><a class="convert" href="Convert.php">Update</a></button>');
+                    echo("</td></tr>");
+                }
+                ?>
+            </table>
+        </div>
     </div>
+    <h3><?php print_r($_SESSION) ?></h3>
 </body>
 </html>

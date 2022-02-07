@@ -1,0 +1,45 @@
+.CRM{
+  font-style: italic;
+	font-size: 30px;
+  margin-left: 150px;
+  margin-right: 100px;
+}
+.header {
+  top: 0;
+  left: 0;
+  right: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(0, 0, 0);
+}
+
+.logout{
+	margin-right: 30px;
+ }
+.therest{
+	margin-top: 10px;
+  font-size: 15px;
+}
+li {
+  float: left;
+  margin-right: 10px;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+li a:hover {
+  background-color: #111;
+}
+
+body {
+  margin: 0px;
+}

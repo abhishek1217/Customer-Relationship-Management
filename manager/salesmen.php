@@ -1,12 +1,11 @@
 <?php
 include "header.html";
-require "pdo_dbconnection.php";
+include "pdo_dbconnection.php";
 session_start();
-$id = $_SESSION['id'];
 $date = date("Y-m-d");
-if ( isset($_POST['Name']) && isset($_POST['Notes']) && isset($_POST['dd']) && isset($_POST['Status']) ) {
+if ( isset($_POST['id']) && isset($_POST['Name']) && isset($_POST['Notes']) && isset($_POST['dd']) && isset($_POST['Status']) ) {
     // Data validation
-    if ( strlen($_POST['Name']) < 1 || strlen($_POST['Notes']) < 1 || strlen($_POST['dd']) < 1 || strlen($_POST['Status']) < 1) {
+    if ( strlen($_POST['id']) < 1 || strlen($_POST['Name']) < 1 || strlen($_POST['Notes']) < 1 || strlen($_POST['dd']) < 1 || strlen($_POST['Status']) < 1) {
         $_SESSION['error'] = 'Missing data';
         header("Location: Tasks.php");
         return;
@@ -15,7 +14,7 @@ if ( isset($_POST['Name']) && isset($_POST['Notes']) && isset($_POST['dd']) && i
     $sql = "INSERT INTO Tasks ( Salesman_id, Customer_Name, Notes, Due_Date, Status, Date_Created) VALUES (:id, :name, :notes, :dd, :status, :dc)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(
-        ':id' => $id,
+        ':id' => $_POST['id'],
         ':name' => $_POST['Name'],
         ':notes' => $_POST['Notes'],
         ':dd' => $_POST['dd'],
@@ -29,14 +28,12 @@ if ( isset($_POST['Name']) && isset($_POST['Notes']) && isset($_POST['dd']) && i
 
 <html>
     <head>
-        <title>Tasks</title>
-        <link rel="stylesheet" href="Tasks.css">
+    <title>Salesmen</title>
+    <link rel="stylesheet" href="salesmen.css">
     </head>
-    <body>
-        <div class="whole-thing">
-            <h1>Tasks</h1>
-            <div class="new-lead">
-                <h2 class="add-text">Add Task</h2>
+    <div class="whole-thing">
+    <div class="new-lead">
+                <h2 class="add-text">Add Task for Salesman</h2>
                 <?php
                     if(isset($_SESSION['success']))
                     {
@@ -59,6 +56,14 @@ if ( isset($_POST['Name']) && isset($_POST['Notes']) && isset($_POST['dd']) && i
                 ?>
                 <div class="container">
                     <form method="post">
+                        <div class="row">
+                            <div class="col-25">
+                            <label for="id">Salesman ID</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" name="id" class="reg-input"/>
+                        </div>
+                        </div>
                         <div class="row">
                             <div class="col-25">
                             <label for="Name">Customer Name</label>
@@ -98,37 +103,38 @@ if ( isset($_POST['Name']) && isset($_POST['Notes']) && isset($_POST['dd']) && i
                     </form>
                 </div>
             </div>
-
-            <h1>Your Tasks</h1>
-            <div class="table">
-                <table id="customers">
+        <h1>All Salesmen</h1>
+        <div class="table">
+            <table id="customers">
                 <tr>
-                <th>Customer Name</th>
-                <th>Notes</th>
-                <th>Due Date</th>
-                <th>Status</th>
-                <th>Date Created</th>
-                <th>Action</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Phone NO</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Branch</th>
                 <?php
-                $stmt = $pdo->query("SELECT * From Tasks");
+                $stmt = $pdo->query("SELECT * From Salesman");
                 while ( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
                     echo("<tr><td>");
-                    echo(htmlentities($row['Customer_Name']));
+                    echo($row['Salesman_id']);
                     echo("</td><td>");
-                    echo(htmlentities($row['Notes']));
+                    echo($row['F_Name']." ".$row['L_Name']);
                     echo("</td><td>");
-                    echo(htmlentities($row['Due_Date']));
-                    echo("</td><td>");
-                    echo(htmlentities($row['Status']));
+                    echo($row['Gender']);
                     echo('</td><td>');
-                    echo(htmlentities($row['Date_Created']));
-                    echo("</td><td>");
-                    echo('<button class="convert-button"><a class="convert" href="Convert.php">Update</a></button>');
-                    echo("</td></tr>");
+                    echo($row['Phone_No']);
+                    echo('</td><td>');
+                    echo($row['Email']);
+                    echo('</td><td>');
+                    echo($row['Address']);
+                    echo('</td><td>');
+                    echo($row['Branch']);
+                    echo('</td><tr>');
                 }
                 ?>
-                </table>
-            </div>
+            </table>
         </div>
-    </body>
+    </div>
 </html>

@@ -1,3 +1,9 @@
+.add-text {
+    margin-left: 10px;
+    margin-top: 40px;
+    padding-top: 35px;
+}
+
 #customers {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -42,13 +48,6 @@
     border-radius: 4px;
     resize: vertical;
   }
-
-  input[type=email] {
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-  }
   
   label {
     padding: 6px 6px 6px 0;
@@ -62,7 +61,7 @@
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    float: right;
+    /* float: right; */
   }
   
   input[type=submit]:hover {
@@ -101,9 +100,9 @@
   }
 
 .whole-thing {
+  /* margin-top: 100px; */
     margin-left: 250px;
     margin-right: 100px;
-    padding: 20px;
 }
 
 
@@ -118,7 +117,6 @@
 }
 
 .convert-button {
-    border-radius: 20px;
     background-color: #111;
     border-color: #111;
     color: white;

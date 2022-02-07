@@ -25,6 +25,12 @@
     color: white;
 }
 
+.whole-thing {
+    /* margin-top: 100px; */
+    margin-left: 250px;
+    margin-right: 100px;
+}
+
 * {
     box-sizing: border-box;
   }
@@ -62,7 +68,7 @@
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    float: right;
+    float: left;
   }
   
   input[type=submit]:hover {
@@ -99,36 +105,3 @@
     display: table;
     clear: both;
   }
-
-.whole-thing {
-    margin-left: 250px;
-    margin-right: 100px;
-    padding: 20px;
-}
-
-
-.new-lead {
-    background-color: #f2f2f2;
-    border: #f2f2f2;
-    border-radius: 20px;
-}
-.convert {
-    color: white;
-    text-decoration: none;
-}
-
-.convert-button {
-    border-radius: 20px;
-    background-color: #111;
-    border-color: #111;
-    color: white;
-}
-
-.delete-button {
-    margin-left: 10px;
-    border-radius: 20px;
-    background-color: #111;
-    border-color: #111;
-    color: white;
-    cursor: pointer;
-}

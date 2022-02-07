@@ -24,10 +24,10 @@ if ( isset($_POST['Username']) && isset($_POST['Password'])) {
         header("Location: managerlogin.php");
         return;
     }
-    $_SESSION['id'] = $row[0]['Salesman_id'];
+    $_SESSION['id'] = $row[0]['Admin_id'];
     $_SESSION['FirstName'] = $row[0]['F_Name'];
     $_SESSION['LastName'] = $row[0]['L_Name'];
-    header("Location: manager/index.php");
+    header("Location: manager/leads.php");
     return;
 }
 ?>

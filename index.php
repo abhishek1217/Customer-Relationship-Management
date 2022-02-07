@@ -44,8 +44,9 @@ if (isset($_POST['uname']) && isset($_POST['psw'])){
     $_SESSION['id'] = $row[0]['Salesman_id'];
     $_SESSION['FirstName'] = $row[0]['F_Name'];
     $_SESSION['LastName'] = $row[0]['L_Name'];
-    header("Location: Leads.php");
-    return;
+    // header("Location: Leads.php");
+
+    // return;
 }
 ?>
 <!DOCTYPE html>
@@ -86,11 +87,7 @@ if (isset($_POST['uname']) && isset($_POST['psw'])){
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
         
-      <button type="submit">Login</button>
-    </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <center><button type="submit" class="login-button">Login</button><center>
     </div>
   </form>
 </div>
