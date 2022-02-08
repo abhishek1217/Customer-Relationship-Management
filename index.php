@@ -1,118 +1,63 @@
-<?php
-require("pdo_dbconnection.php");
-session_start();
-if ( isset($_POST['F_name']) && isset($_POST['L_name']) && isset($_POST['Gender']) && isset($_POST['Phone_No']) &&
-        isset($_POST['Username']) && isset($_POST['email']) && isset($_POST['pass']) && isset($_POST['pass2'])) {
-
-    if (strlen($_POST['F_name']) < 1 || strlen($_POST['L_name']) < 1 || strlen($_POST['Gender']) < 1 || strlen($_POST['Phone_No']) < 1 ||
-            strlen($_POST['Username']) < 1 || strlen($_POST['email']) < 1 || strlen($_POST['pass']) < 1 || strlen($_POST['pass2']) < 1) {
-        $_SESSION['error'] = "Missing Data";
-        header("Location: index.php");
-        return;
-    }
-
-    if ( $_POST['pass'] !== $_POST['pass2']){
-        $_SESSION['error'] = "Passwords don't Match";
-        header("Location: index.php");
-        return;
-    }
-    $sql = "INSERT INTO Salesman (F_Name, L_Name, Gender, Phone_No, Email, Username, Password) VALUES (:fname,:lname,:gender,:phone_no,:email,:username,:password)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-        ':fname' => $_POST['F_name'],
-        ':lname' => $_POST['L_name'],
-        ':gender' => $_POST['Gender'],
-        ':phone_no' => $_POST['Phone_No'],
-        ':email' => $_POST['email'],
-        ':username' => $_POST['Username'],
-        ':password' => $_POST['pass']));
-    $_SESSION['success'] = 'Sign Up Complete. Please Log In to Continue';
-    header('Location: index.php');
-    return;
-    }
-if (isset($_POST['uname']) && isset($_POST['psw'])){
-    //TO DO: Add data validation 
-    $sql = "SELECT F_Name,L_Name,Salesman_id, Username, Password From Salesman Where Username= :un and Password = :ps";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([':un' => $_POST['uname'],':ps' => $_POST['psw']]);
-    $row = $stmt->fetchALL(PDO::FETCH_ASSOC);
-    if ( $row[0]['Password'] !== $_POST['psw']){
-        $_SESSION['error'] = 'Incorrect Password';
-        header("Location: login.php");
-        return;
-    }
-    $_SESSION['id'] = $row[0]['Salesman_id'];
-    $_SESSION['FirstName'] = $row[0]['F_Name'];
-    $_SESSION['LastName'] = $row[0]['L_Name'];
-    // header("Location: Leads.php");
-
-    // return;
-}
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <title>Document</title>
 </head>
 <body>
-<div>
-<ul class="header">
-    <li><a class="crm" style = "font-style: italic;">CRM</a></li>
-    <div class="therest">
-    <li><a href="login.php">Salesman</a></li>
-    <li><a href="managerlogin.php">Manager</a></li></div>
-    <!-- <li><a href="#about">About</a></li></div> -->
-</ul>
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Tenth navbar example">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#" style="margin-right:20px;"><h3>CRM <br/></h3></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.php"style="margin-top:8px;"><h5>Salesman</h5></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="managerlogin.php" style="margin-top:8px;"><h5>Manager</h5></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+<div class="bg-image" 
+     style="background-image: url(light.jpg);
+            height:100vh; background-repeat:no-repeat; background-size:cover;">
 </div>
-
-<center><img src="crmimage.jpg" alt="CRM" class="crm-image"></center>
-<span>Customer Relationship Management</span>
-<span>Your one stop to improve Customer relations</span>
-<h2>Modal Login Form</h2>
-
-<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-
-<div id="id01" class="modal">
-  
-  <form class="modal-content animate" method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="profile.svg" alt="Avatar" class="avatar">
-    </div>
-
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-        
-      <center><button type="submit" class="login-button">Login</button><center>
-    </div>
-  </form>
+<div style="position:absolute; top:20%; left:50%; transform:translate(-50%,-50%); z-index:2;"><h1 style="font-size: 45px;">Customer Relationship Management</h1></div>
+<div style="position:absolute; top:30%; left: 50%; transform:translate(-50%,-50%); z-index:2;"><h3>Your One Stop For Managing Customer Relations</h3></div>
+<div class="card bg-light mb-3" style="position:absolute; top:60%; left:50%; transform:translate(-50%,-50%); z-index:2; width:35%; height:40%;">
+  <div class="card-header"><h3><strong><center>Login</center></strong><h3/></div>
+  <div class="card-body">
+  <form>
+  <div class="form-group">
+      
+    <label for="exampleInputEmail1" style="margin-bottom: 5px;">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+  </div>
+  <br/>
+  <div class="form-group">
+    <label for="exampleInputPassword1" style="margin-bottom: 5px;">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <br/>
+  <center><button type="submit" class="btn btn-dark">Submit</button></center>
+</form>
+  </div>
 </div>
-
-<script>
-// Get the modal
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
-<!-- <div class="whole-thing">
-    <p class="para">Customer Relationship Management</p>
-    <div style="background-image: url('crmimage.jpg');">
-        <p class="para2">Manage all your customer data at just one place </p>
-        <button onclick = "location.href = 'login.php';" class="login-button">Log In</button>
-        <button onclick = "location.href = 'signup.php';" class="login-button">Sign Up</button>
-    </div>
-</div> -->
-<!-- <div style="background-image: url('crmimage.jpg');"></div> -->
+<a href="signup.php" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" style="position:absolute; top:90%; left:50%; transform:translate(-50%,-50%); z-index:2;">Register/Sign Up</a>
+</div>
 </body>
 </html>
-
 

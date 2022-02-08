@@ -7,7 +7,7 @@ if ( isset($_POST['id']) && isset($_POST['Name']) && isset($_POST['Notes']) && i
     // Data validation
     if ( strlen($_POST['id']) < 1 || strlen($_POST['Name']) < 1 || strlen($_POST['Notes']) < 1 || strlen($_POST['dd']) < 1 || strlen($_POST['Status']) < 1) {
         $_SESSION['error'] = 'Missing data';
-        header("Location: Tasks.php");
+        header("Location: salesmen.php");
         return;
     }
 
@@ -21,7 +21,7 @@ if ( isset($_POST['id']) && isset($_POST['Name']) && isset($_POST['Notes']) && i
         ':status' => $_POST['Status'],
         ':dc' => $date));
     $_SESSION['success'] = 'Task Added';
-    header('Location: Tasks.php');
+    header('Location: salesmen.php');
     return;
 }
 ?>

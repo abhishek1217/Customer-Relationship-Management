@@ -30,6 +30,7 @@ if ( isset($_POST['Name']) && isset($_POST['Product']) && isset($_POST['Gender']
 <html>
     <head>
         <title>Convert</title>
+        <link rel="stylesheet" href="Convert.css">
     </head>
     <body>
     <?php
@@ -43,20 +44,65 @@ if ( isset($_POST['Name']) && isset($_POST['Product']) && isset($_POST['Gender']
     }
     unset($_SESSION['error']);
     ?>
-    <form method="post">
-            <p class="reg"><label for="Name">Name</label>
-            <input type="text" name="Name" class="reg-input"/></p>
-            <p class="reg"><label for="Gender">Gender</label>
-            <input type="text" name="Gender" class="reg-input"/></p>
-            <p class="reg"><label for="Product">Product Requested</label>
-            <input type="text" name="Product" class="reg-input"/></p>
-            <p class="reg"><label for="Phone_No">Phone_No</label>
-            <input type="number" name="Phone_No" class="reg-input"/></p>
-            <p class="reg"><label for="Email">Email</label>
-            <input type="text" name="Email" class="reg-input"/></p>
-            <p class="reg"><label for="AP">Amount Paid</label>
-            <input type="number" name="AP" class="reg-input"/></p>
-            <input class="create-button" type="submit" value="Convert">
-        </form>
+    <div class="whole-thing">
+        <div class="new-lead">
+            <div class="container">
+            <form method="post">
+                        <div class="row">
+                            <div class = "col-25">
+                                <label for="Name">Name</label>
+                            </div>
+                                <div class="col-75">
+                                    <input type="text" name="Name" class="reg-input"/>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="Gender">Gender</label>
+                            </div>
+                                <div class="col-75">
+                                    <input type="text" name="Gender" class="reg-input"/>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="Product">Product Requested</label>
+                            </div>
+                                <div class="col-75">
+                                    <input type="text" name="Product" class="reg-input"/>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="Phone_No">Phone No</label>
+                            </div>
+                                <div class="col-75">
+                                    <input type="number" name="Phone_No" class="reg-input"/>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="Email">Email</label>
+                            </div>
+                                <div class="col-75">
+                                    <input type="email" name="Email" class="reg-input"/>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="AP">Amount Paid</label>
+                            </div>
+                                <div class="col-75">
+                                    <input type="number" name="AP" class="reg-input"/>
+                                </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <input class="create-button" type="submit" value="Convert">
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
     </body>
 </html>
