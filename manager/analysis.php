@@ -12,8 +12,8 @@ include "pdo_dbconnection.php";
     <title>Analysis</title>
 </head>
 <body>
-    <div class="whole-thing" style="margin-left: 200px; margin-right: 50px;">
-    <center><h1 style="margin-top: 20px; padding: 10px; margin-bottom: 5px;">Brief Analysis</h1></center>
+    <div class="whole-thing" style="margin-left: 150px; margin-right: 100px;">
+    <h1 style="margin-top: 20px; margin-left:10px; padding: 20px; margin-bottom: 5px;">Brief Analysis</h1>
 <div class="row" style="margin: 20px;">
   <div class="col-sm-6">
     <div class="card bg-light">

@@ -1,3 +1,36 @@
+<?php
+require("pdo_dbconnection.php");
+session_start();
+$un = ' ';
+$ps = ' ';
+$id = ' ';
+if ( isset($_POST['Username']) && isset($_POST['Password'])) {
+
+    $un = $_POST['Username'];
+    $ps = $_POST['Password'];
+    // Data validation
+    if ( strlen($_POST['Username']) < 1 || strlen($_POST['Password']) < 1) {
+        $_SESSION['error'] = 'Missing data';
+        header("Location: index.php");
+        return;
+    }
+
+    $sql = "SELECT F_Name,L_Name,Salesman_id, Username, Password From Salesman Where Username= :un and Password = :ps";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([':un' => $un,':ps' => $ps]);
+    $row = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    if ( $row[0]['Password'] !== $ps){
+        $_SESSION['error'] = 'Incorrect Password';
+        header("Location: index.php");
+        return;
+    }
+    $_SESSION['id'] = $row[0]['Salesman_id'];
+    $_SESSION['FirstName'] = $row[0]['F_Name'];
+    $_SESSION['LastName'] = $row[0]['L_Name'];
+    header("Location: Leads.php");
+    return;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +59,9 @@
           <li class="nav-item">
             <a class="nav-link" href="managerlogin.php" style="margin-top:8px;"><h5>Manager</h5></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="signup.php" style="margin-top:8px;"><h5>SignUp</h5></a>
+          </li>
         </ul>
       </div>
     </div>
@@ -38,25 +74,33 @@
 <div style="position:absolute; top:20%; left:50%; transform:translate(-50%,-50%); z-index:2;"><h1 style="font-size: 45px;">Customer Relationship Management</h1></div>
 <div style="position:absolute; top:30%; left: 50%; transform:translate(-50%,-50%); z-index:2;"><h3>Your One Stop For Managing Customer Relations</h3></div>
 <div class="card bg-light mb-3" style="position:absolute; top:60%; left:50%; transform:translate(-50%,-50%); z-index:2; width:35%; height:40%;">
-  <div class="card-header"><h3><strong><center>Login</center></strong><h3/></div>
-  <div class="card-body">
-  <form>
+  <div class="card-header text-center"><h3><strong>Login</strong><h3/></div>
+  <div class="card-body text-center">
+  <form method="post">
   <div class="form-group">
-      
-    <label for="exampleInputEmail1" style="margin-bottom: 5px;">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <?php
+            if(isset($_SESSION['error'])){
+            ?>
+            <div class="message">
+            <strong>Error!</strong> <?php echo $_SESSION['error']; ?>
+            </div>
+            <?php
+            }
+            unset($_SESSION['error']);
+          ?> 
+    <label for="exampleInputEmail1" style="margin-bottom: 5px;">Username</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="Username" placeholder="Enter Username">
   </div>
   <br/>
   <div class="form-group">
     <label for="exampleInputPassword1" style="margin-bottom: 5px;">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+    <input type="password" class="form-control" id="exampleInputPassword1" name="Password" placeholder="Password">
   </div>
   <br/>
-  <center><button type="submit" class="btn btn-dark">Submit</button></center>
+  <button type="submit" class="btn btn-dark">Login</button>
 </form>
   </div>
 </div>
-<a href="signup.php" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" style="position:absolute; top:90%; left:50%; transform:translate(-50%,-50%); z-index:2;">Register/Sign Up</a>
 </div>
 </body>
 </html>

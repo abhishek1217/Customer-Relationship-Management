@@ -11,7 +11,7 @@ if ( isset($_POST['Username']) && isset($_POST['Password'])) {
     // Data validation
     if ( strlen($_POST['Username']) < 1 || strlen($_POST['Password']) < 1) {
         $_SESSION['error'] = 'Missing data';
-        header("Location: login.php");
+        header("Location: managerlogin.php");
         return;
     }
 
@@ -31,23 +31,22 @@ if ( isset($_POST['Username']) && isset($_POST['Password'])) {
     return;
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Log In</title>
-    <link rel="stylesheet" href="login.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-    <div class = "login-stuff">
-        <div class="details">
-            <h1>Login</h1>
-            <form method="post">
-            <p class="login-text"><label for="Username">Username</label>
-            <input type="text" name="Username" class="login-input"/></p>
-            <p class="login-text"><label for="Password">Password</label>
-            <input type="text" name="Password" class="login-input"/></p>
-            <input type="submit" value="Login" class="login-button">
+<div class="bg-image" 
+     style="background-image: url(light.jpg);
+            height:100vh; background-repeat:no-repeat; background-size:cover;">
+</div>
+        <div class="card bg-light mb-3" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; width:35%; height:40%;">
+        <div class="card-header text-center"><h3><strong>Login</strong><h3/></div>
+        <div class="card-body text-center">
+        <form method="post">
+        <div class="form-group">
             <?php
             if(isset($_SESSION['error'])){
             ?>
@@ -58,8 +57,18 @@ if ( isset($_POST['Username']) && isset($_POST['Password'])) {
             }
             unset($_SESSION['error']);
             ?>
-            </form>
+            <label for="exampleInputEmail1" style="margin-bottom: 5px;">Username</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" name="Username" aria-describedby="emailHelp" placeholder="Enter Username">
         </div>
-    </div>
+        <br/>
+        <div class="form-group">
+            <label for="exampleInputPassword1" style="margin-bottom: 5px;">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="Password" placeholder="Password">
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-dark">Login</button>
+        </form>
+        </div>
+        </div>
 </body>
 </html>
